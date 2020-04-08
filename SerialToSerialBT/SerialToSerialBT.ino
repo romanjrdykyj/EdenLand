@@ -19,11 +19,15 @@ void setup() {
 }
 
 void loop() {
+  if (Serial.available()) {
+    ESP_BT.write(Serial.read());
+  }
   
   if (ESP_BT.available()) //Check if we receive anything from Bluetooth
   {
     incoming = (char)ESP_BT.read(); //Read what we recevive 
-    Serial.print("Received:"); Serial.println(incoming);
+    Serial.print("Received:"); 
+    Serial.println(incoming);
 
     if (incoming == 'f')
         {
