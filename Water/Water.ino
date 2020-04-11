@@ -1,5 +1,5 @@
 
-#define WATER_SENSOR 2
+#define WATER_SENSOR 12
 int stan;
 
 void setup()
@@ -10,7 +10,7 @@ void setup()
 void loop()
 {
   stan = digitalRead(WATER_SENSOR);
-  if(stan==1)
+  if(stan!=1)
   {
     Serial.println("WODA POWYZEJ 20%");
   }
