@@ -1,7 +1,7 @@
 
 #include <OneWire.h>
 #include <DallasTemperature.h>
-#include <EEPROM.h> //Standard EEPROM Library
+
 
 
 
@@ -16,9 +16,9 @@
 
 int R1 = 1000;
 int Ra = 25; //Resitance of Digital Pin, 25 ohms for mega/uno
-int ECPin = A15;
-int ECGround = A14;
-int ECPower = A11;
+int ECPin = 34;
+int ECGround = 35;
+int ECPower = 36;
 
 
 //************************* User Defined Variables ********************************************************//
@@ -53,9 +53,8 @@ float K = 1.76;
 
 
 //************ Temp Probe Related *********************************************//
-#define ONE_WIRE_BUS 26           // Data wire For Temp Probe is plugged into pin 10 on the Arduino
-const int TempProbePossitive = 22; //Temp Probe power connected to pin 9
-const int TempProbeNegative = 24;  //Temp Probe Negative connected to pin 8
+#define ONE_WIRE_BUS 4           // Data wire For Temp Probe is plugged into pin 10 on the Arduino
+
 
 
 
@@ -93,10 +92,7 @@ float Rc = 0;
 void setup()
 {
   Serial.begin(9600);
-  pinMode(TempProbeNegative , OUTPUT ); //seting ground pin as output for tmp probe
-  digitalWrite(TempProbeNegative , LOW );//Seting it to ground so it can sink current
-  pinMode(TempProbePossitive , OUTPUT );//ditto but for positive
-  digitalWrite(TempProbePossitive , HIGH );
+
   pinMode(ECPin, INPUT);
   pinMode(ECPower, OUTPUT); //Setting pin for sourcing current
   pinMode(ECGround, OUTPUT); //setting pin for sinking current
@@ -187,11 +183,6 @@ void GetEC() {
 
 //***This Loop Is called From Main Loop- Prints to serial usefull info ***//
 void PrintReadings() {
-  Serial.print("Rc: ");
-  Serial.print(Rc);
-  Serial.print(" EC: ");
-  Serial.print(EC25);
-  Serial.print(" Simens  ");
   Serial.print(ppm);
   Serial.print(" ppm  ");
   Serial.print(Temperature);
