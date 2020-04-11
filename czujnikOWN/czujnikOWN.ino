@@ -159,12 +159,11 @@ void loop()
  
  
  
-GetEC();          //Calls Code to Go into GetEC() Loop [Below Main Loop] dont call this more that 1/5 hhz [once every five seconds] or you will polarise the water
-PrintReadings();  // Cals Print routine [below main loop]
- 
- 
-delay(5000);
- 
+if ((millis() % 10000) <= 100) {
+    GetEC();           //Calls Code to Go into GetEC() Loop [Below Main Loop] dont call this more that 1/5 hhz [once every five seconds] or you will polarise the water
+  };
+  PrintReadings();   // Cals Print routine [below main loop]
+  delay(100); //Stops us entering the GETEC loop twice
  
 }
 //************************************** End Of Main Loop **********************************************************************//
@@ -212,24 +211,9 @@ ppm=(EC25)*(PPMconversion*1000);
  
 //***This Loop Is called From Main Loop- Prints to serial usefull info ***//
 void PrintReadings(){
-Serial.print("Rc: ");
-Serial.print(Rc);
-Serial.print(" EC: ");
-Serial.print(EC25);
-Serial.print(" Simens  ");
 Serial.print(ppm);
 Serial.print(" ppm  ");
 Serial.print(Temperature);
 Serial.println(" *C ");
- 
- 
-
-//********** Usued for Debugging ************
-Serial.print("Vdrop: ");
-Serial.println(Vdrop);
-Serial.print("Raw: ");
-Serial.println(raw);
-
-//********** end of Debugging Prints *********
 
 };
